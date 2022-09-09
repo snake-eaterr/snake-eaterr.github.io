@@ -1,6 +1,8 @@
 const nav = document.querySelector('.navbar');
 const scrollBtn = document.querySelector('.scroll-up-button');
-const slideIn = document.querySelector('.slide-in');
+const slideInElements = document.querySelectorAll('.slide-in');
+const trigger = document.querySelector('#dropdown');
+const menuButtons = document.querySelectorAll('.menu-btn');
 
 // this is to minimize hit on performance
 function debounce(func, wait = 20, immediate = true) {
@@ -18,6 +20,7 @@ function debounce(func, wait = 20, immediate = true) {
   };
 }
 
+console.log(menuButtons)
 
 
 function stickNav() {
@@ -33,29 +36,78 @@ function stickNav() {
 
 
 const typed = new Typed('.typing', {
-  strings: [' whoami ^1000\n `Mothana Khawaga. Full stack web developer and bitcoiner!`^1000\n\n `snake-eaterr@dev:~$` cat experience.txt^1000\n `React + Nodejs full stack development` ^1000'],
+  strings: [' whoami ^1000\n `Mothana Khawaga. Full stack web developer and bitcoiner!`^1000\n\n `<span class="prompt">&nbspsnake-eaterr@dev:~$&nbsp</span>` cat experience.txt^1000\n `React + Nodejs full stack development` ^1000'],
   typeSpeed: 100,
-  backspeed: 500,
+  fadeOut: true,
   loop: true,
+  
 
 })
 
-function checkSlide(e) {
-  const slideInAt = window.scrollY + window.innerHeight - slideIn.offsetHeight / 5;
-  console.log(slideIn.height)
-  elementBottom = slideIn.offsetTop + slideIn.offsetHeight;
-  
-  const isHalfShown = slideInAt > slideIn.offsetTop;
-  const isNotScrolledPast = window.scrollY < elementBottom;
+const typedTwo = new Typed('.typing-2', {
+  strings: ['React^1000', 'Next^1000', 'Nodejs^1000', 'Graphql^1000', 'Redux^1000', 'Typescript^1000', 'Javascript^1000'],
+  typeSpeed: 100,
+  backspeed: 400,
+  loop: true
+})
 
-  if(isHalfShown && isNotScrolledPast) {
-    slideIn.classList.add('active');
-  } else {
-    slideIn.classList.remove('active');
+function checkSlide(e) {
+  slideInElements.forEach(slideIn => {
+    const slideInAt = window.scrollY + window.innerHeight - slideIn.offsetHeight / 5;
+    console.log(slideIn.height)
+    elementBottom = slideIn.offsetTop + slideIn.offsetHeight;
+    
+    const isHalfShown = slideInAt > slideIn.offsetTop;
+    const isNotScrolledPast = window.scrollY < elementBottom;
+
+    if(isHalfShown && isNotScrolledPast) {
+      slideIn.classList.add('active');
+    } else {
+      slideIn.classList.remove('active');
+    }
+  });
+  
+}
+
+
+$('.carousel').owlCarousel({
+  margin: 20,
+  loop: true,
+  autoplayTimeOut: 2000,
+  autoplayHoverPause: true,
+  responsive: {
+      0:{
+          items: 1,
+          nav: false
+      },
+      600:{
+          items: 1,
+          nav: false
+      },
+      1000:{
+          items: 2,
+          nav: false
+      }
   }
+});
+
+function handleEnter() {
+  trigger.classList.add('trigger-enter');
+  setTimeout(() => trigger.classList.contains('trigger-enter') &&  trigger.classList.add('trigger-enter-active'), 150)
+}
+
+function handleLeave() {
+  trigger.classList.remove('trigger-enter-active', 'trigger-enter')
+}
+
+function toggleMobileMenu() {
+  document.querySelector('.navbar .menu').classList.toggle('active');
+  document.querySelector('.menu-btn i').classList.toggle('active');
 }
 
 window.addEventListener('scroll', stickNav);
 window.addEventListener('scroll', debounce(checkSlide));
 scrollBtn.addEventListener('click', () => window.scroll({ top: 0, behavior: 'smooth' }));
-
+trigger.addEventListener('mouseenter', handleEnter);
+trigger.addEventListener('mouseleave', handleLeave);
+menuButtons.forEach(button => button.addEventListener('click', toggleMobileMenu));

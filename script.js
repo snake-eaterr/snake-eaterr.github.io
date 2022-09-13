@@ -3,6 +3,9 @@ const scrollBtn = document.querySelector('.scroll-up-button');
 const slideInElements = document.querySelectorAll('.slide-in');
 const trigger = document.querySelector('.trigger');
 const menuButtons = document.querySelectorAll('.menu-btn');
+const form = document.querySelector('.contact-form');
+const success = document.querySelector('.success');
+
 
 
 // this is to minimize hit on performance
@@ -21,7 +24,6 @@ function debounce(func, wait = 20, immediate = true) {
   };
 }
 
-console.log(menuButtons)
 
 
 function stickNav() {
@@ -37,7 +39,7 @@ function stickNav() {
 
 
 const typed = new Typed('.typing', {
-  strings: [' whoami ^1000\n `Mothana Khawaga. Full stack web developer and bitcoiner!`\n\n `<span class="prompt">&nbspsnake-eaterr@dev:~$&nbsp</span>` ^1000cat experience.txt^1000\n ` React + Nodejs full stack development` ^1000'],
+  strings: [' whoami ^1000\n `Mothana Khawaga. Full stack web developer and bitcoiner!`\n\n `<span class="prompt">&nbspsnake-eaterr@dev:~$&nbsp</span>` ^1000cat experience.txt^1000\n ` React + Nodejs full stack web development` ^1000'],
   typeSpeed: 100,
   fadeOut: true,
   loop: true,
@@ -55,7 +57,6 @@ const typed = new Typed('.typing', {
 function checkSlide(e) {
   slideInElements.forEach(slideIn => {
     const slideInAt = window.scrollY + window.innerHeight - slideIn.offsetHeight / 5;
-    console.log(slideIn.height)
     elementBottom = slideIn.offsetTop + slideIn.offsetHeight;
     
     const isHalfShown = slideInAt > slideIn.offsetTop;
@@ -93,6 +94,32 @@ $('.carousel').owlCarousel({
 });
 
 
+function handleSubmit(e) {
+  e.preventDefault();
+  let timeout;
+  const body = {
+    name: this.name.value,
+    email: this.email.value,
+    subject: this.subject.value,
+    describe_project: this.description.value
+  };
+  fetch('https://hooks.zapier.com/hooks/catch/13343875/bea36gq/', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  })
+  .then(response => response.json)
+  .then(data => {
+    this.reset();
+    form.classList.add('show-success');
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      form.classList.remove('show-success');
+    }, 3000);
+  })
+  
+  
+}
+
 function toggleMobileMenu() {
   document.querySelector('.navbar .menu').classList.toggle('active');
   document.querySelector('.menu-btn i').classList.toggle('active');
@@ -104,3 +131,4 @@ scrollBtn.addEventListener('click', () => window.scroll({ top: 0, behavior: 'smo
 
 
 menuButtons.forEach(button => button.addEventListener('click', toggleMobileMenu));
+form.addEventListener('submit', handleSubmit);

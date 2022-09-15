@@ -39,7 +39,7 @@ function stickNav() {
 
 
 const typed = new Typed('.typing', {
-  strings: [' whoami ^1000\n `Mothana Khawaga. Full stack web developer and bitcoiner!`\n\n `<span class="prompt">&nbspsnake-eaterr@dev:~$&nbsp</span>` ^1000cat experience.txt^1000\n ` React + Nodejs full stack web development` ^1000'],
+  strings: [' whoami ^1000\n `snake-eaterr. Full stack web developer and bitcoiner!`\n\n `<span class="prompt">&nbspsnake-eaterr@dev:~$&nbsp</span>` ^1000cat experience.txt^1000\n ` React + Nodejs full stack web development` ^1000'],
   typeSpeed: 100,
   fadeOut: true,
   loop: true,

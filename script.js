@@ -101,11 +101,14 @@ function handleSubmit(e) {
     name: this.name.value,
     email: this.email.value,
     subject: this.subject.value,
-    describe_project: this.description.value
+    describeProject: this.description.value
   };
-  fetch('https://hooks.zapier.com/hooks/catch/13343875/bea36gq/', {
+  fetch('http://165.227.225.34:4000', {
     method: 'POST',
-    body: JSON.stringify(body)
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json'
+    },
   })
   .then(response => response.json)
   .then(data => {

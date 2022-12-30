@@ -103,8 +103,7 @@ function handleSubmit(e) {
     subject: this.subject.value,
     describeProject: this.description.value
   };
-   
-  fetch('http://165.227.225.34:4000', {
+  fetch('https://165.227.225.34:4000', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

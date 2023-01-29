@@ -106,9 +106,7 @@ function handleSubmit(e) {
   fetch('https://hooks.zapier.com/hooks/catch/14414200/bve5prn/', {
     method: 'POST',
     body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    
   })
   .then(response => response.json)
   .then(data => {

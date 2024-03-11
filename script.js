@@ -103,7 +103,7 @@ function handleSubmit(e) {
     subject: this.subject.value,
     describeProject: this.description.value
   };
-  fetch('https://maker.ifttt.com/trigger/message_received/json/with/key/h830_6wsNVFzcoLYJKQg02_vXUd-Tqj2Mx3IPPR3ZkJ', {
+  fetch('http://192.153.57.22:3000/sendToIFTTT', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

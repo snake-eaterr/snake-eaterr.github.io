@@ -103,20 +103,22 @@ function handleSubmit(e) {
     subject: this.subject.value,
     describeProject: this.description.value
   };
-  fetch('https://hooks.zapier.com/hooks/catch/14414200/bve5prn/', {
+  fetch('https://maker.ifttt.com/trigger/message_received/json/with/key/h830_6wsNVFzcoLYJKQg02_vXUd-Tqj2Mx3IPPR3ZkJ', {
     method: 'POST',
     body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json"
+    }
     
   })
-  .then(response => response.json)
-  .then(data => {
+  .then(() => {
     this.reset();
     form.classList.add('show-success');
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       form.classList.remove('show-success');
     }, 3000);
-  })
+  }).catch(error => console.log(error))
   
   
 }

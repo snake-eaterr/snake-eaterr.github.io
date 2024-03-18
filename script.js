@@ -103,7 +103,7 @@ function handleSubmit(e) {
     subject: this.subject.value,
     describeProject: this.description.value
   };
-  fetch('http://192.153.57.22:3000/sendToIFTTT', {
+  fetch('https://192.153.57.22:3000/sendToIFTTT', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
